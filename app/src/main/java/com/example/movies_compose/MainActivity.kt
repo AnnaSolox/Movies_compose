@@ -6,18 +6,29 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.movies_compose.ui.components.CardsScreen
+import com.example.movies_compose.ui.components.FavoritesScreen
+import com.example.movies_compose.ui.components.PopularScreen
 import com.example.movies_compose.ui.components.MovieDetails
 import com.example.movies_compose.ui.models.Routes
+import com.example.movies_compose.ui.models.navigationItems
 import com.example.movies_compose.ui.theme.Movies_composeTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,6 +39,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Movies_composeTheme {
+                val navigationController = rememberNavController()
+
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -40,30 +53,54 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     },
-                    bottomBar = {
-
-                    })
+                    bottomBar = { BottomNavigationBar(navigationController) })
                 { innerPadding ->
-                    val navigationController = rememberNavController()
+
                     NavHost(
                         navController = navigationController,
-                        startDestination = Routes.PopularScreen.route
+                        startDestination = Routes.PopularScreen.route,
+                        modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable(Routes.PopularScreen.route) {
-                            CardsScreen(
-                                navigationController,
-                                Modifier.padding(innerPadding)
-                            )
-                        }
-                        composable(Routes.DetailScreen.route) {
-                            MovieDetails(
-                                navigationController,
-                                Modifier.padding(innerPadding)
-                            )
-                        }
+                        composable(Routes.PopularScreen.route) {PopularScreen(navigationController)}
+                        composable(Routes.FavoritesScreen.route){ FavoritesScreen(navigationController) }
+                        composable(Routes.DetailScreen.route) {MovieDetails(navigationController)}
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun BottomNavigationBar(navController: NavController) {
+    val selectedNavigationIndex = rememberSaveable { mutableIntStateOf(0) }
+
+    NavigationBar(
+        containerColor = Color.White
+    ) {
+        navigationItems.forEachIndexed { index, item ->
+            NavigationBarItem(
+                selected = selectedNavigationIndex.intValue == index,
+                onClick = {
+                    selectedNavigationIndex.intValue = index
+                    navController.navigate(item.route)
+                },
+                icon = {
+                    Icon(imageVector = item.icon, contentDescription = item.title)
+                },
+                label = {
+                    Text(
+                        item.title,
+                        color = if (index == selectedNavigationIndex.intValue)
+                            Color.Black
+                        else Color.Gray
+                    )
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.surface,
+                    indicatorColor = MaterialTheme.colorScheme.primary
+                )
+            )
         }
     }
 }

@@ -117,9 +117,18 @@ fun MovieCard(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CardsScreen(navController:NavHostController, modifier: Modifier){
-    LazyColumn (modifier.fillMaxSize()) {
+fun PopularScreen(navController:NavHostController){
+    LazyColumn (Modifier.fillMaxSize()) {
         items(4){
+            MovieCard()
+        }
+    }
+}
+
+@Composable
+fun FavoritesScreen(navController: NavHostController){
+    LazyColumn (Modifier.fillMaxSize()) {
+        items(6){
             MovieCard()
         }
     }

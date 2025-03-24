@@ -180,7 +180,7 @@ fun MovieOverview() {
 }
 
 @Composable
-fun MovieDetails(navController: NavHostController, modifier: Modifier) {
+fun MovieDetails(navController: NavHostController) {
     Column(modifier = Modifier
         .fillMaxSize()
         .verticalScroll(rememberScrollState())) {
