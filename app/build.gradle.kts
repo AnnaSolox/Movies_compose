@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.ksp)
 }
 
 android {
@@ -73,4 +74,18 @@ dependencies {
 
     //Navigation compose
     implementation(libs.androidx.navigation.compose)
+
+    // Retrofit
+    implementation (libs.retrofit)
+    implementation (libs.retrofit2.kotlin.coroutines.adapter)
+    implementation (libs.converter.gson)
+    implementation (libs.okhttp)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+
+    //Room + pagin3
+    implementation(libs.androidx.room.paging)
+    ksp(libs.androidx.room.compiler)
 }
