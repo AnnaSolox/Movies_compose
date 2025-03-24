@@ -70,4 +70,7 @@ dependencies {
 
     //Constraint layout compose
     implementation (libs.androidx.constraintlayout.compose)
+
+    //Navigation compose
+    implementation(libs.androidx.navigation.compose)
 }

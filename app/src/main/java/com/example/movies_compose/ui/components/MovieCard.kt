@@ -31,6 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavHostController
 import com.example.movies_compose.R
 
 @Preview(showBackground = true)
@@ -52,7 +53,7 @@ fun MovieCard(modifier: Modifier = Modifier) {
         modifier
             .fillMaxWidth()
             .height(heightInDp.dp)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 5.dp, vertical = 8.dp),
         elevation = CardDefaults.elevatedCardElevation(16.dp),
     ) {
         ConstraintLayout {
@@ -116,7 +117,7 @@ fun MovieCard(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CardsScreen(modifier: Modifier){
+fun CardsScreen(navController:NavHostController, modifier: Modifier){
     LazyColumn (modifier.fillMaxSize()) {
         items(4){
             MovieCard()

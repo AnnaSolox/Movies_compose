@@ -2,19 +2,15 @@ package com.example.movies_compose.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -30,7 +26,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -39,15 +34,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavHostController
 import com.example.movies_compose.R
 
-@Preview
 @Composable
 fun MovieMainInformation(modifier: Modifier = Modifier) {
+
     val context = LocalContext.current
     val displayMetrics = context.resources.displayMetrics
 
-    // Altura utilizable de la pantalla
     val screenHeight = displayMetrics.heightPixels // en píxeles
     val screenHeightDp = with(LocalDensity.current) { screenHeight.toDp() }
 
@@ -59,7 +54,7 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
     )
 
     Column(
-        Modifier
+        modifier
             .fillMaxWidth()
             .height(screenHeightDp)
     ) {
@@ -160,13 +155,13 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 fun MovieOverview() {
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(25.dp)
+            .padding(horizontal = 25.dp)
+            .padding(bottom = 50.dp)
     ) {
         Column {
             Text(
@@ -184,9 +179,8 @@ fun MovieOverview() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun MovieDetails(modifier: Modifier = Modifier) {
+fun MovieDetails(navController: NavHostController, modifier: Modifier) {
     Column(modifier = Modifier
         .fillMaxSize()
         .verticalScroll(rememberScrollState())) {
