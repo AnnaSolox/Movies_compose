@@ -24,11 +24,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.movies_compose.ui.components.FavoritesScreen
-import com.example.movies_compose.ui.components.PopularScreen
+import com.example.movies_compose.ui.screens.PopularScreen
 import com.example.movies_compose.ui.components.MovieDetails
 import com.example.movies_compose.ui.models.Routes
 import com.example.movies_compose.ui.models.navigationItems
+import com.example.movies_compose.ui.screens.FavoriteScreen
 import com.example.movies_compose.ui.theme.Movies_composeTheme
 
 class MainActivity : ComponentActivity() {
@@ -61,8 +61,8 @@ class MainActivity : ComponentActivity() {
                         startDestination = Routes.PopularScreen.route,
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable(Routes.PopularScreen.route) {PopularScreen(navigationController)}
-                        composable(Routes.FavoritesScreen.route){ FavoritesScreen(navigationController) }
+                        composable(Routes.PopularScreen.route) { PopularScreen(navigationController) }
+                        composable(Routes.FavoriteScreen.route){FavoriteScreen(navigationController) }
                         composable(Routes.DetailScreen.route) {MovieDetails(navigationController)}
                     }
                 }

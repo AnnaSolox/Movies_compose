@@ -16,12 +16,14 @@ retrofit = "2.11.0"
 retrofit2KotlinCoroutinesAdapter = "0.9.2"
 okhttp = "4.12.0"
 roomRuntime = "2.6.1"
-
+pagingCompose = "3.3.6"
 
 [libraries]
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "pagingCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -50,6 +52,8 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 #Gson
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 
+#Pagin
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -57,5 +61,6 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 #ksp
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }
+
 
 

@@ -88,4 +88,12 @@ dependencies {
     //Room + pagin3
     implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
+
+    //Paging
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+
+    //Koil
+    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
 }

@@ -13,5 +13,5 @@ data class NavigationItem(
 
 val navigationItems = listOf(
     NavigationItem("Popular", Icons.Default.Star, Routes.PopularScreen.route),
-    NavigationItem("Favorites", Icons.Default.Favorite, Routes.FavoritesScreen.route)
+    NavigationItem("Favorites", Icons.Default.Favorite, Routes.FavoriteScreen.route)
 )

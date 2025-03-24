@@ -1,7 +1,7 @@
 package com.example.movies_compose.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -27,16 +27,15 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavHostController
-import com.example.movies_compose.R
+import coil3.compose.AsyncImage
+import com.example.movies_compose.core.Constants
+import com.example.movies_compose.ui.models.MovieRV
 
-@Preview(showBackground = true)
+
 @Composable
-fun MovieCard(modifier: Modifier = Modifier) {
+fun MovieCard(movieRV: MovieRV, isFavorite: Boolean, onFavoriteClick: (Int) -> Unit) {
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
@@ -49,17 +48,20 @@ fun MovieCard(modifier: Modifier = Modifier) {
         start = Offset(0.0f, 1000.0f),
         end = Offset(0.0f, 000.0f)
     )
+
+    val favoriteIcon = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder
+
     ElevatedCard(
-        modifier
+        Modifier
             .fillMaxWidth()
             .height(heightInDp.dp)
             .padding(horizontal = 5.dp, vertical = 8.dp),
-        elevation = CardDefaults.elevatedCardElevation(16.dp),
+        elevation = CardDefaults.elevatedCardElevation(8.dp),
     ) {
         ConstraintLayout {
             val (gradient, info) = createRefs()
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
+            AsyncImage(
+                model = Constants.POSTER_BASE_URL + movieRV.posterPath,
                 contentDescription = "Movie poster",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -87,17 +89,19 @@ fun MovieCard(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(Modifier.weight(.75f)) {
-                    Text(
-                        text = "Nombre de la película",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = Color.White
-                    )
+                    movieRV.title?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.titleLarge,
+                            color = Color.White
+                        )
+                    }
 
-                    Text(
-                        text = "Fecha de lanzamiento",
+                    movieRV.releaseDate?.let { Text(
+                        text = it,
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.White
-                    )
+                    ) }
                 }
 
                 Column(
@@ -105,31 +109,14 @@ fun MovieCard(modifier: Modifier = Modifier) {
                     horizontalAlignment = Alignment.End
                 ) {
                     Icon(
-                        imageVector = Icons.Default.FavoriteBorder,
+                        imageVector = favoriteIcon,
                         contentDescription = "Favorite icon",
-                        Modifier.size(40.dp),
-                        tint = Color.White
+                        tint = Color.White,
+                        modifier = Modifier.size(40.dp)
+                            .clickable { onFavoriteClick(movieRV.id) },
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun PopularScreen(navController:NavHostController){
-    LazyColumn (Modifier.fillMaxSize()) {
-        items(4){
-            MovieCard()
-        }
-    }
-}
-
-@Composable
-fun FavoritesScreen(navController: NavHostController){
-    LazyColumn (Modifier.fillMaxSize()) {
-        items(6){
-            MovieCard()
         }
     }
 }
