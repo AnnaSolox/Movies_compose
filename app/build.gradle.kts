@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,6 +69,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Koil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     //Constraint layout compose
     implementation (libs.androidx.constraintlayout.compose)
@@ -92,8 +97,4 @@ dependencies {
     //Paging
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
-
-    //Koil
-    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
-    implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
 }

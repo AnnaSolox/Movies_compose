@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.2"
+coilCompose = "3.1.0"
 constraintlayoutCompose = "1.1.1"
 kotlin = "2.1.10"
 coreKtx = "1.15.0"
@@ -17,6 +18,7 @@ retrofit2KotlinCoroutinesAdapter = "0.9.2"
 okhttp = "4.12.0"
 roomRuntime = "2.6.1"
 pagingCompose = "3.3.6"
+runtimeLivedata = "1.7.8"
 
 [libraries]
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
@@ -24,6 +26,8 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
 androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "pagingCompose" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -51,6 +55,7 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 
 #Gson
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 #Pagin
 

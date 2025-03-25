@@ -21,14 +21,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.movies_compose.ui.screens.PopularScreen
-import com.example.movies_compose.ui.components.MovieDetails
+import androidx.navigation.navArgument
 import com.example.movies_compose.ui.models.Routes
 import com.example.movies_compose.ui.models.navigationItems
 import com.example.movies_compose.ui.screens.FavoriteScreen
+import com.example.movies_compose.ui.screens.MovieDetailScreen
+import com.example.movies_compose.ui.screens.PopularScreen
 import com.example.movies_compose.ui.theme.Movies_composeTheme
 
 class MainActivity : ComponentActivity() {
@@ -62,8 +64,20 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(Routes.PopularScreen.route) { PopularScreen(navigationController) }
-                        composable(Routes.FavoriteScreen.route){FavoriteScreen(navigationController) }
-                        composable(Routes.DetailScreen.route) {MovieDetails(navigationController)}
+                        composable(Routes.FavoriteScreen.route) {
+                            FavoriteScreen(
+                                navigationController
+                            )
+                        }
+                        composable(
+                            Routes.DetailScreen.route,
+                            arguments = listOf(navArgument("movieId") {type = NavType.IntType})
+                        ) { backStackEntry ->
+                            MovieDetailScreen(
+                                navigationController,
+                                backStackEntry.arguments?.getInt("movieId") ?: 0
+                            )
+                        }
                     }
                 }
             }

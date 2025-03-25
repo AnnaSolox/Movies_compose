@@ -1,6 +1,5 @@
 package com.example.movies_compose.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,8 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
@@ -28,17 +25,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavHostController
-import com.example.movies_compose.R
+import coil3.compose.AsyncImage
+import com.example.movies_compose.core.Constants
+import com.example.movies_compose.data.api.models.MovieDetail
 
 @Composable
-fun MovieMainInformation(modifier: Modifier = Modifier) {
+fun MovieMainInformation(movie: MovieDetail) {
 
     val context = LocalContext.current
     val displayMetrics = context.resources.displayMetrics
@@ -53,8 +49,18 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
         end = Offset(0.0f, 000.0f)
     )
 
+    val vote: Int = (movie.voteAverage?.times(10))?.toInt() ?: 0
+    val circularProgressColor = when (vote){
+        0 -> Color.Gray
+        in 1..49 -> Color.Red
+        in 50..75 -> Color.Yellow
+        else -> Color.Green
+    }
+
+    val genres = movie.genres?.map { it.name }
+
     Column(
-        modifier
+        Modifier
             .fillMaxWidth()
             .height(screenHeightDp)
     ) {
@@ -62,12 +68,15 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
             val information = createRef()
 
             Box(Modifier.fillMaxSize()) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
-                    contentDescription = "Backdrop image",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
+                movie.backdropPath?.let {
+                    AsyncImage(
+                        model = Constants.BACKDROP_BASE_URL + it,
+                        contentDescription = "Movie backdrop image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+                }
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -82,13 +91,15 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
                         bottom.linkTo(parent.bottom)
                     }) {
                 Row {
-                    Text(
-                        modifier = Modifier
-                            .padding(bottom = 16.dp)
-                            .weight(1f),
-                        text = "(2024)",
-                        style = MaterialTheme.typography.displaySmall
-                    )
+                    movie.releaseDate?.substring(0,4)?.let {
+                        Text(
+                            modifier = Modifier
+                                .padding(bottom = 16.dp)
+                                .weight(1f),
+                            text = it,
+                            style = MaterialTheme.typography.displaySmall
+                        )
+                    }
                     Icon(
                         imageVector = Icons.Default.FavoriteBorder,
                         contentDescription = "FavoriteIcon",
@@ -97,16 +108,22 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
                             .align(Alignment.Top)
                     )
                 }
-                Text(
-                    text = "Título de la película".uppercase(),
-                    style = MaterialTheme.typography.displayMedium,
-                )
-                Text(
-                    modifier = Modifier.padding(bottom = 25.dp),
-                    text = "Tagline",
-                    style = MaterialTheme.typography.displaySmall,
-                    fontSize = 18.sp
-                )
+                movie.title?.let {
+                    Text(
+                        text = it.uppercase(),
+                        style = MaterialTheme.typography.displayMedium,
+                    )
+                }
+
+                movie.tagline?.let {
+                    Text(
+                        modifier = Modifier.padding(bottom = 25.dp),
+                        text = it,
+                        style = MaterialTheme.typography.displaySmall,
+                        fontSize = 18.sp
+                    )
+                }
+
                 Row(Modifier.fillMaxWidth()) {
                     Column(
                         Modifier
@@ -114,22 +131,28 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
                             .padding(end = 8.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Text(
-                            text = "Comedia, drama, suspense, terror, ficción, romance.",
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "Release date",
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontSize = 18.sp
-                        )
-                        Text(
-                            text = "Runtime",
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontSize = 18.sp
-                        )
+                        genres?.let {
+                            Text(
+                                text = it.toString().substringAfter("[").substringBefore("]"),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        movie.releaseDate?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontSize = 18.sp
+                            )
+                        }
+                        movie.runtime?.let {
+                            Text(
+                                text = "$it min",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontSize = 18.sp
+                            )
+                        }
                     }
                     Column(
                         horizontalAlignment = Alignment.End
@@ -138,15 +161,18 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
                             contentAlignment = Alignment.CenterEnd,
                             modifier = Modifier.size(55.dp)
                         ) {
-                            CircularProgressIndicator(
-                                progress = { .5f },
-                                modifier = Modifier.fillMaxSize(),
-                            )
-                            Text(
-                                text = "50%",
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier.align(Alignment.Center)
-                            )
+                            vote.let {
+                                CircularProgressIndicator(
+                                    progress = { if(vote != 0) vote.toFloat() / 100 else 100f },
+                                    color = circularProgressColor,
+                                    modifier = Modifier.fillMaxSize(),
+                                )
+                                Text(
+                                    text = if (vote != 0) "${vote}%" else "NR",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    modifier = Modifier.align(Alignment.Center)
+                                )
+                            }
                         }
                     }
                 }
@@ -156,7 +182,7 @@ fun MovieMainInformation(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MovieOverview() {
+fun MovieOverview(movie: MovieDetail) {
     Box(
         Modifier
             .fillMaxWidth()
@@ -164,27 +190,19 @@ fun MovieOverview() {
             .padding(bottom = 50.dp)
     ) {
         Column {
-            Text(
-                text = "Overview",
-                style = MaterialTheme.typography.bodyLarge,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = "Lorem ipsum dolor set amet",
-                style = MaterialTheme.typography.bodyMedium,
-                fontSize = 18.sp
-            )
+            movie.overview?.let {
+                Text(
+                    text = "Overview",
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = movie.overview.toString(),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontSize = 18.sp
+                )
+            }
         }
-    }
-}
-
-@Composable
-fun MovieDetails(navController: NavHostController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState())) {
-        MovieMainInformation()
-        MovieOverview()
     }
 }

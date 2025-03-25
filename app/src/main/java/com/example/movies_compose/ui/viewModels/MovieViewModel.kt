@@ -148,14 +148,18 @@ class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel(
      * @param movieId ID de la película que se desea obtener.
      * @return Un objeto `MovieDB` con los detalles de la película, o `null` si no se encuentra.
      */
-    suspend fun getMovieByIdFromDb(movieId: Int): MovieDB? {
-        return withContext(Dispatchers.IO) {
+    fun getMovieByIdFromDb(movieId: Int, onResult: (MovieDB?) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val movieDB = movieRepository.getMovieByIdFromDB(movieId)
-                movieDB
+                withContext(Dispatchers.Main) {
+                    onResult(movieDB)
+                }
             } catch (e: Exception) {
                 Log.e("VIEWMODEL", "Error al obtener la película con id $movieId desde BBDD: ${e.message}")
-                null
+                withContext(Dispatchers.Main) {
+                    onResult(null)
+                }
             }
         }
     }
