@@ -2,7 +2,6 @@ package com.example.movies_compose.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,14 +21,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil3.compose.AsyncImage
+import com.example.movies_compose.R
 import com.example.movies_compose.core.Constants
 import com.example.movies_compose.ui.models.MovieRV
 
@@ -47,13 +49,6 @@ fun MovieCard(
 
     val heightInDp = screenHeight * 0.6
 
-    val brush = Brush.linearGradient(
-        0.0f to Color.Black.copy(alpha = 0.8f),
-        .6f to Color.Transparent,
-        start = Offset(0.0f, 1300.0f),
-        end = Offset(0.0f, 000.0f)
-    )
-
     val favoriteIcon = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder
 
     ElevatedCard(
@@ -65,32 +60,35 @@ fun MovieCard(
         elevation = CardDefaults.elevatedCardElevation(8.dp),
     ) {
         ConstraintLayout {
-            val (gradient, info) = createRefs()
+            val info = createRef()
             AsyncImage(
                 model = Constants.POSTER_BASE_URL + movieRV.posterPath,
                 contentDescription = "Movie poster",
+                error = painterResource(R.drawable.image_not_found),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(shape = MaterialTheme.shapes.medium)
-            )
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(brush)
-                .constrainAs(gradient) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
+                    .background(Color.LightGray)
+                    .drawWithContent {
+                        drawContent()
+                        drawRect(
+                            brush = Brush.linearGradient(
+                                0.0f to Color.Black.copy(alpha = 0.8f),
+                                .6f to Color.Transparent,
+                                start = Offset(0.0f, size.height),
+                                end = Offset(0.0f, size.height * 0.25f)
+                            )
+                        )
+                    }
             )
             Row(
                 modifier = Modifier
                     .padding(16.dp)
                     .constrainAs(info) {
-                        start.linkTo(gradient.start)
-                        end.linkTo(gradient.end)
-                        bottom.linkTo(gradient.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
                     },
                 verticalAlignment = Alignment.CenterVertically
             ) {

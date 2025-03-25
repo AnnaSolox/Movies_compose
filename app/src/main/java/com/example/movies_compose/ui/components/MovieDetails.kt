@@ -24,17 +24,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil3.compose.AsyncImage
+import com.example.movies_compose.R
 import com.example.movies_compose.core.Constants
 import com.example.movies_compose.data.api.models.MovieDetail
 
@@ -50,13 +54,6 @@ fun MovieMainInformation(
 
     val screenHeight = displayMetrics.heightPixels // en píxeles
     val screenHeightDp = with(LocalDensity.current) { screenHeight.toDp() }
-
-    val whiteGradient = Brush.linearGradient(
-        0.0f to Color.White,
-        .6f to Color.Transparent,
-        start = Offset(0.0f, 1900.0f),
-        end = Offset(0.0f, 000.0f)
-    )
 
     val vote: Int = (movie.voteAverage?.times(10))?.toInt() ?: 0
     val circularProgressColor = when (vote) {
@@ -79,20 +76,29 @@ fun MovieMainInformation(
             val information = createRef()
 
             Box {
-                movie.backdropPath?.let {
                     AsyncImage(
-                        model = Constants.BACKDROP_BASE_URL + it,
+                        model = Constants.BACKDROP_BASE_URL + movie.backdropPath,
                         contentDescription = "Movie backdrop image",
+                        error = painterResource(R.drawable.image_not_found),
+                        fallback = ColorPainter(Color.DarkGray),
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .fillMaxSize()
+                            .height(screenHeightDp)
+                            .fillMaxWidth()
+                            .background(Color.LightGray)
+                            .drawWithContent {
+                                drawContent()
+                                drawRect(
+                                    brush = Brush.linearGradient(
+                                        0.0f to Color.White.copy(alpha = 1f),
+                                        0.4f to Color.White.copy(alpha = 0.9f),
+                                        0.8f to Color.Transparent,
+                                        start = Offset(0.0f, size.height),
+                                        end = Offset(0.0f, size.height * 0.2f)
+                                    )
+                                )
+                            }
                     )
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(whiteGradient)
-                )
             }
 
             Column(
@@ -171,7 +177,7 @@ fun MovieMainInformation(
                         }
                         Spacer(modifier = Modifier.height(4.dp))
                         movie.runtime?.let {
-                            if(movie.runtime != 0){
+                            if (movie.runtime != 0) {
                                 Text(
                                     text = "$it min",
                                     style = MaterialTheme.typography.bodyMedium,
@@ -210,20 +216,21 @@ fun MovieMainInformation(
 @Composable
 fun MovieOverview(movie: MovieDetail) {
     movie.overview?.let {
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 25.dp)
-            .padding(bottom = 50.dp)
-    ) {
-        Column {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(horizontal = 25.dp)
+                .padding(bottom = 50.dp)
+        ) {
+            Column {
                 Text(
                     text = "Overview",
                     style = MaterialTheme.typography.bodyLarge,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = movie.overview.toString(),
                     style = MaterialTheme.typography.bodyMedium
