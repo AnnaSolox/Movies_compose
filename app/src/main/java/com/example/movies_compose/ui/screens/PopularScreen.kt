@@ -21,16 +21,12 @@ import com.example.movies_compose.ui.viewModels.MovieViewModel
 import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
 
 @Composable
-fun PopularScreen(navigateToDetail: (Int) -> Unit) {
-    val moviesRepository = MoviesRepository(
-        movieDAO = MovieDatabase.getDatabase(LocalContext.current).movieDao(),
-        movieApiService = RetrofitInstance.movieApiService
-    )
-
-    val viewModel: MovieViewModel = viewModel(factory = MovieViewModelFactory(moviesRepository))
+fun PopularScreen(navigateToDetail: (Int) -> Unit, viewModel: MovieViewModel) {
 
     val popularMovies = viewModel.movies.collectAsLazyPagingItems()
     val favoriteMovieIds by viewModel.favoriteMovieIds.collectAsState(initial = emptySet())
+
+    viewModel.setCurrentScreenTitle("Popular Movies")
 
     if (popularMovies.loadState.refresh is LoadState.Loading) {
         LoadingComponent()

@@ -21,13 +21,8 @@ import com.example.movies_compose.ui.viewModels.MovieViewModel
 import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
 
 @Composable
-fun MovieDetailScreen( movieId: Int) {
-    val moviesRepository = MoviesRepository(
-        movieDAO = MovieDatabase.getDatabase(LocalContext.current).movieDao(),
-        movieApiService = RetrofitInstance.movieApiService
-    )
+fun MovieDetailScreen( movieId: Int, viewModel: MovieViewModel) {
 
-    val viewModel: MovieViewModel = viewModel(factory = MovieViewModelFactory(moviesRepository))
     viewModel.fetchMovieById(movieId)
     Log.d("MOVIE DETAIL SCREEN", "Id recibido: $movieId")
 
@@ -50,6 +45,7 @@ fun MovieDetailScreen( movieId: Int) {
                 onFavoriteClick = {
                     viewModel.getMovieByIdFromDb(detailMovie!!.id) { movieDB ->
                         movieDB?.let {
+                            movieDB.title?.let { viewModel.setCurrentScreenTitle(movieDB.title) }
                             it.isFavourite = !it.isFavourite
                             viewModel.updateFavorites(it)
                         }

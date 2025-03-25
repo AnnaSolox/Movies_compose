@@ -1,6 +1,7 @@
 package com.example.movies_compose.ui.viewModels
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,6 +30,10 @@ import java.util.Locale
  * @param movieRepository Repositorio de películas que interactúa con la base de datos y las API externas.
  */
 class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel() {
+
+    //Detectar en qué pantalla estamos
+    private val _currentTitle = MutableLiveData<String>()
+    val currentTitle: LiveData<String> get() = _currentTitle
 
     //Detectar idioma del teléfono
     private val language = "${Locale.getDefault().language}-${Locale.getDefault().country}"
@@ -162,5 +167,9 @@ class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel(
                 }
             }
         }
+    }
+
+    fun setCurrentScreenTitle(title: String){
+        _currentTitle.value = title
     }
 }

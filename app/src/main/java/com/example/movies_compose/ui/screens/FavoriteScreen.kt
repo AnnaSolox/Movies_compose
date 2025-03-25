@@ -19,13 +19,7 @@ import com.example.movies_compose.ui.viewModels.MovieViewModel
 import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
 
 @Composable
-fun FavoriteScreen(navigateToDetail: (Int) -> Unit) {
-    val moviesRepository = MoviesRepository(
-        movieDAO = MovieDatabase.getDatabase(LocalContext.current).movieDao(),
-        movieApiService = RetrofitInstance.movieApiService
-    )
-
-    val viewModel: MovieViewModel = viewModel(factory = MovieViewModelFactory(moviesRepository))
+fun FavoriteScreen(navigateToDetail: (Int) -> Unit, viewModel: MovieViewModel) {
 
     val favoriteMovies = viewModel.favorites.collectAsLazyPagingItems()
 
