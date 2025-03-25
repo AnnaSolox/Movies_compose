@@ -8,11 +8,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movies_compose.data.api.RetrofitInstance
 import com.example.movies_compose.data.bbdd.MovieDatabase
 import com.example.movies_compose.data.repositories.MoviesRepository
+import com.example.movies_compose.ui.components.LoadingComponent
 import com.example.movies_compose.ui.components.MovieCard
+import com.example.movies_compose.ui.components.NoFavorites
 import com.example.movies_compose.ui.models.Routes
 import com.example.movies_compose.ui.viewModels.MovieViewModel
 import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
@@ -27,6 +30,14 @@ fun FavoriteScreen(navController: NavHostController) {
     val viewModel: MovieViewModel = viewModel(factory = MovieViewModelFactory(moviesRepository))
 
     val favoriteMovies = viewModel.favorites.collectAsLazyPagingItems()
+
+    if (favoriteMovies.loadState.refresh is LoadState.Loading) {
+        LoadingComponent()
+    }
+
+    if (favoriteMovies.itemCount == 0){
+        NoFavorites()
+    }
 
     LazyColumn(
         modifier = Modifier

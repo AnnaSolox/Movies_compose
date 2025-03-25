@@ -54,7 +54,7 @@ fun MovieMainInformation(
     val whiteGradient = Brush.linearGradient(
         0.0f to Color.White,
         .6f to Color.Transparent,
-        start = Offset(0.0f, 1500.0f),
+        start = Offset(0.0f, 1900.0f),
         end = Offset(0.0f, 000.0f)
     )
 
@@ -158,25 +158,23 @@ fun MovieMainInformation(
                             Text(
                                 text = it.toString().substringAfter("[").substringBefore("]"),
                                 style = MaterialTheme.typography.bodyLarge,
-                                fontSize = 18.sp,
+                                fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold
                             )
                         }
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                         movie.releaseDate?.let {
                             Text(
                                 text = it,
                                 style = MaterialTheme.typography.bodyMedium,
-                                fontSize = 18.sp
                             )
                         }
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                         movie.runtime?.let {
                             if(movie.runtime != 0){
                                 Text(
                                     text = "$it min",
                                     style = MaterialTheme.typography.bodyMedium,
-                                    fontSize = 18.sp
                                 )
                             }
                         }
@@ -222,13 +220,13 @@ fun MovieOverview(movie: MovieDetail) {
                 Text(
                     text = "Overview",
                     style = MaterialTheme.typography.bodyLarge,
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
+            Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = movie.overview.toString(),
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 18.sp
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }

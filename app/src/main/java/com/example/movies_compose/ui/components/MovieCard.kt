@@ -54,9 +54,9 @@ fun MovieCard(
     val heightInDp = screenHeight * 0.6
 
     val brush = Brush.linearGradient(
-        0.0f to Color.Black,
+        0.0f to Color.Black.copy(alpha = 0.8f),
         .6f to Color.Transparent,
-        start = Offset(0.0f, 1000.0f),
+        start = Offset(0.0f, 1300.0f),
         end = Offset(0.0f, 000.0f)
     )
 

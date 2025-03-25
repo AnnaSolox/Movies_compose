@@ -15,6 +15,7 @@ import androidx.navigation.NavHostController
 import com.example.movies_compose.data.api.RetrofitInstance
 import com.example.movies_compose.data.bbdd.MovieDatabase
 import com.example.movies_compose.data.repositories.MoviesRepository
+import com.example.movies_compose.ui.components.LoadingComponent
 import com.example.movies_compose.ui.components.MovieMainInformation
 import com.example.movies_compose.ui.components.MovieOverview
 import com.example.movies_compose.ui.viewModels.MovieViewModel
@@ -32,9 +33,15 @@ fun MovieDetailScreen(navController: NavHostController, movieId: Int) {
     Log.d("MOVIE DETAIL SCREEN", "Id recibido: $movieId")
 
     val detailMovie by viewModel.movie.observeAsState()
+    val isLoading by viewModel.isLoading.observeAsState()
+
     val favoriteMovieIds by viewModel.favoriteMovieIds.collectAsState(initial = emptySet())
 
     Log.d("MOVIE DETAIL SCREEN", "Detail movie recibido: $detailMovie")
+
+    if (isLoading == true){
+        LoadingComponent()
+    }
 
     if(detailMovie != null) {
         Column(modifier = Modifier
