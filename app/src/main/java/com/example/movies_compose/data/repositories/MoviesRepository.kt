@@ -1,10 +1,10 @@
 package com.example.movies_compose.data.repositories
 
-import MovieApiService
 import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.movies_compose.data.api.MovieApiService
 import com.example.movies_compose.data.api.models.MovieDetail
 import com.example.movies_compose.data.api.models.MovieListResponse
 import com.example.movies_compose.data.bbdd.MovieDAO

@@ -1,3 +1,5 @@
+package com.example.movies_compose.data.api
+
 import com.example.movies_compose.data.api.models.MovieDetail
 import com.example.movies_compose.data.api.models.MovieListResponse
 import retrofit2.Response

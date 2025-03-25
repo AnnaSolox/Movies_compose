@@ -1,6 +1,5 @@
 package com.example.movies_compose.data.api
 
-import MovieApiService
 import com.example.movies_compose.core.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

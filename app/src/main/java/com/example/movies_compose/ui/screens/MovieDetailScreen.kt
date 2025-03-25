@@ -11,7 +11,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import com.example.movies_compose.data.api.RetrofitInstance
 import com.example.movies_compose.data.bbdd.MovieDatabase
 import com.example.movies_compose.data.repositories.MoviesRepository
