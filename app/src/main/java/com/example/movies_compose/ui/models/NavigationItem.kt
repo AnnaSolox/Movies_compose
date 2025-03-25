@@ -8,10 +8,4 @@ import androidx.compose.ui.graphics.vector.ImageVector
 data class NavigationItem(
     val title: String,
     val icon: ImageVector,
-    val route: String
-)
-
-val navigationItems = listOf(
-    NavigationItem("Popular", Icons.Default.Star, Routes.PopularScreen.route),
-    NavigationItem("Favorites", Icons.Default.Favorite, Routes.FavoriteScreen.route)
 )

@@ -22,7 +22,7 @@ import com.example.movies_compose.ui.viewModels.MovieViewModel
 import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
 
 @Composable
-fun MovieDetailScreen(navController: NavHostController, movieId: Int) {
+fun MovieDetailScreen( movieId: Int) {
     val moviesRepository = MoviesRepository(
         movieDAO = MovieDatabase.getDatabase(LocalContext.current).movieDao(),
         movieApiService = RetrofitInstance.movieApiService

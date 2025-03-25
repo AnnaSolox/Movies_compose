@@ -23,8 +23,10 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Yellow900,
     primaryContainer = Blue200,
     secondaryContainer = Blue100,
-    surface = Blue200,
     onSecondaryContainer = Blue800,
+    surface = Blue200,
+    onSurface = Color.Black,
+    onSurfaceVariant = Color.Gray,
     onPrimaryContainer = Color.White,
     onError = Red900
 

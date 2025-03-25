@@ -21,7 +21,7 @@ import com.example.movies_compose.ui.viewModels.MovieViewModel
 import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
 
 @Composable
-fun FavoriteScreen(navController: NavHostController) {
+fun FavoriteScreen(navigateToDetail: (Int) -> Unit) {
     val moviesRepository = MoviesRepository(
         movieDAO = MovieDatabase.getDatabase(LocalContext.current).movieDao(),
         movieApiService = RetrofitInstance.movieApiService
@@ -53,7 +53,7 @@ fun FavoriteScreen(navController: NavHostController) {
                         movieRV = movie,
                         isFavorite = true,
                         onClick = {
-                            navController.navigate(Routes.DetailScreen.createRoute(movie.id))
+                            navigateToDetail(movie.id)
                         },
                         onFavoriteClick = {
                             movie.isFavorite = !movie.isFavorite
