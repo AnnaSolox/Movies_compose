@@ -33,7 +33,6 @@ fun PopularScreen(navigateToDetail: (Int) -> Unit, viewModel: MovieViewModel) {
     ) {
         items(
             count = popularMovies.itemCount,
-            key = { index -> popularMovies[index]?.id ?: index },
             itemContent = { index: Int ->
                 popularMovies[index]?.let { movie ->
                     MovieCard(

@@ -31,7 +31,6 @@ fun FavoriteScreen(navigateToDetail: (Int) -> Unit, viewModel: MovieViewModel) {
     ) {
         items(
             count = favoriteMovies.itemCount,
-            key = { index -> favoriteMovies[index]?.id ?: index  },
             itemContent = { index: Int ->
                 favoriteMovies[index]?.let {
                     movie ->
