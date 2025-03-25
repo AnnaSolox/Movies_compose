@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -21,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -58,9 +61,9 @@ fun MovieMainInformation(
     val vote: Int = (movie.voteAverage?.times(10))?.toInt() ?: 0
     val circularProgressColor = when (vote) {
         0 -> Color.Gray
-        in 1..49 -> Color.Red
-        in 50..75 -> Color.Yellow
-        else -> Color.Green
+        in 1..49 -> MaterialTheme.colorScheme.error
+        in 50..75 -> MaterialTheme.colorScheme.tertiary
+        else -> MaterialTheme.colorScheme.primary
     }
 
     val favoriteIcon = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder
@@ -70,7 +73,7 @@ fun MovieMainInformation(
     Column(
         Modifier
             .fillMaxWidth()
-            .height(screenHeightDp - 80.dp)
+            .height(screenHeightDp)
     ) {
         ConstraintLayout {
             val information = createRef()
@@ -108,16 +111,25 @@ fun MovieMainInformation(
                             style = MaterialTheme.typography.displaySmall
                         )
                     }
-                    Icon(
-                        imageVector = favoriteIcon,
-                        contentDescription = "FavoriteIcon",
-                        modifier = Modifier
-                            .size(48.dp)
+                    Box(
+                        Modifier
                             .align(Alignment.Top)
+                            .size(54.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primary)
                             .clickable {
                                 onFavoriteClick()
                             }
-                    )
+                    ) {
+                        Icon(
+                            imageVector = favoriteIcon,
+                            tint = Color.White,
+                            contentDescription = "FavoriteIcon",
+                            modifier = Modifier
+                                .size(38.dp)
+                                .align(Alignment.Center)
+                        )
+                    }
                 }
                 movie.title?.let {
                     Text(
@@ -140,7 +152,7 @@ fun MovieMainInformation(
                         Modifier
                             .weight(1f)
                             .padding(end = 8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.Top,
                     ) {
                         genres?.let {
                             Text(
@@ -150,6 +162,7 @@ fun MovieMainInformation(
                                 fontWeight = FontWeight.Bold
                             )
                         }
+                        Spacer(modifier = Modifier.height(8.dp))
                         movie.releaseDate?.let {
                             Text(
                                 text = it,
@@ -157,12 +170,15 @@ fun MovieMainInformation(
                                 fontSize = 18.sp
                             )
                         }
+                        Spacer(modifier = Modifier.height(8.dp))
                         movie.runtime?.let {
-                            Text(
-                                text = "$it min",
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontSize = 18.sp
-                            )
+                            if(movie.runtime != 0){
+                                Text(
+                                    text = "$it min",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontSize = 18.sp
+                                )
+                            }
                         }
                     }
                     Column(
@@ -176,6 +192,7 @@ fun MovieMainInformation(
                                 CircularProgressIndicator(
                                     progress = { if (vote != 0) vote.toFloat() / 100 else 100f },
                                     color = circularProgressColor,
+                                    trackColor = Color.LightGray,
                                     modifier = Modifier.fillMaxSize(),
                                 )
                                 Text(
@@ -194,6 +211,7 @@ fun MovieMainInformation(
 
 @Composable
 fun MovieOverview(movie: MovieDetail) {
+    movie.overview?.let {
     Box(
         Modifier
             .fillMaxWidth()
@@ -201,7 +219,6 @@ fun MovieOverview(movie: MovieDetail) {
             .padding(bottom = 50.dp)
     ) {
         Column {
-            movie.overview?.let {
                 Text(
                     text = "Overview",
                     style = MaterialTheme.typography.bodyLarge,

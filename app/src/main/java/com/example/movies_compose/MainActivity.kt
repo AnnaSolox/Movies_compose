@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Movies_composeTheme {
+            Movies_composeTheme (dynamicColor = false) {
                 val navigationController = rememberNavController()
                 var showBottomBar by remember { mutableStateOf(true) }
 
@@ -59,10 +59,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         TopAppBar(
-                            colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                titleContentColor = MaterialTheme.colorScheme.primary,
-                            ),
+
                             title = {
                                 Text("Popular Movies")
                             }
@@ -127,10 +124,7 @@ fun BottomNavigationBar(navController: NavController) {
                         else Color.Gray
                     )
                 },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.surface,
-                    indicatorColor = MaterialTheme.colorScheme.primary
-                )
+
             )
         }
     }

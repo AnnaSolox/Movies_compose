@@ -20,9 +20,14 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Blue200,
     secondary = Blue400,
-    tertiary = Blue600,
-    primaryContainer = Blue400,
+    tertiary = Yellow900,
+    primaryContainer = Blue200,
+    secondaryContainer = Blue100,
+    surface = Blue200,
+    onSecondaryContainer = Blue800,
     onPrimaryContainer = Color.White,
+    onError = Red900
+
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
