@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.example.movies_compose.core.navigation.FavoriteMovies
 import com.example.movies_compose.core.navigation.PopularMovies
@@ -24,7 +25,8 @@ fun BottomNavigationBar(navController: NavController) {
         NavigationItem("Favorites", Icons.Default.Favorite)
     )
 
-    NavigationBar{
+    NavigationBar(
+        containerColor = Color.White){
         navigationItems.forEachIndexed { index, item ->
             val isSelected = selectedNavigationIndex.intValue == index
             NavigationBarItem(
