@@ -1,6 +1,7 @@
 package com.example.movies_compose.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -34,7 +36,11 @@ import com.example.movies_compose.core.Constants
 import com.example.movies_compose.data.api.models.MovieDetail
 
 @Composable
-fun MovieMainInformation(movie: MovieDetail) {
+fun MovieMainInformation(
+    movie: MovieDetail,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit
+) {
 
     val context = LocalContext.current
     val displayMetrics = context.resources.displayMetrics
@@ -50,24 +56,26 @@ fun MovieMainInformation(movie: MovieDetail) {
     )
 
     val vote: Int = (movie.voteAverage?.times(10))?.toInt() ?: 0
-    val circularProgressColor = when (vote){
+    val circularProgressColor = when (vote) {
         0 -> Color.Gray
         in 1..49 -> Color.Red
         in 50..75 -> Color.Yellow
         else -> Color.Green
     }
 
+    val favoriteIcon = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder
+
     val genres = movie.genres?.map { it.name }
 
     Column(
         Modifier
             .fillMaxWidth()
-            .height(screenHeightDp)
+            .height(screenHeightDp - 80.dp)
     ) {
         ConstraintLayout {
             val information = createRef()
 
-            Box(Modifier.fillMaxSize()) {
+            Box {
                 movie.backdropPath?.let {
                     AsyncImage(
                         model = Constants.BACKDROP_BASE_URL + it,
@@ -91,21 +99,24 @@ fun MovieMainInformation(movie: MovieDetail) {
                         bottom.linkTo(parent.bottom)
                     }) {
                 Row {
-                    movie.releaseDate?.substring(0,4)?.let {
+                    movie.releaseDate?.substring(0, 4)?.let {
                         Text(
                             modifier = Modifier
                                 .padding(bottom = 16.dp)
                                 .weight(1f),
-                            text = it,
+                            text = "($it)",
                             style = MaterialTheme.typography.displaySmall
                         )
                     }
                     Icon(
-                        imageVector = Icons.Default.FavoriteBorder,
+                        imageVector = favoriteIcon,
                         contentDescription = "FavoriteIcon",
                         modifier = Modifier
                             .size(48.dp)
                             .align(Alignment.Top)
+                            .clickable {
+                                onFavoriteClick()
+                            }
                     )
                 }
                 movie.title?.let {
@@ -163,7 +174,7 @@ fun MovieMainInformation(movie: MovieDetail) {
                         ) {
                             vote.let {
                                 CircularProgressIndicator(
-                                    progress = { if(vote != 0) vote.toFloat() / 100 else 100f },
+                                    progress = { if (vote != 0) vote.toFloat() / 100 else 100f },
                                     color = circularProgressColor,
                                     modifier = Modifier.fillMaxSize(),
                                 )

@@ -1,15 +1,24 @@
 package com.example.movies_compose.ui.screens
 
+import android.util.Log
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movies_compose.data.api.RetrofitInstance
 import com.example.movies_compose.data.bbdd.MovieDatabase
@@ -31,7 +40,10 @@ fun PopularScreen(navController: NavHostController) {
     val popularMovies = viewModel.movies.collectAsLazyPagingItems()
     val favoriteMovieIds by viewModel.favoriteMovieIds.collectAsState(initial = emptySet())
 
-    LazyColumn(Modifier.padding(horizontal = 8.dp)) {
+    LazyColumn(
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+    ) {
         items(
             count = popularMovies.itemCount,
             key = { index -> popularMovies[index]?.id ?: index },
@@ -41,7 +53,8 @@ fun PopularScreen(navController: NavHostController) {
                         movieRV = movie,
                         isFavorite = favoriteMovieIds.contains(movie.id),
                         onClick = {
-                            navController.navigate(Routes.DetailScreen.createRoute(movie.id))},
+                            navController.navigate(Routes.DetailScreen.createRoute(movie.id))
+                        },
                         onFavoriteClick = {
                             movie.isFavorite = !movie.isFavorite
 

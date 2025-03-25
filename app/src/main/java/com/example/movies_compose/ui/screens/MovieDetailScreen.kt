@@ -2,10 +2,10 @@ package com.example.movies_compose.ui.screens
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -32,13 +32,23 @@ fun MovieDetailScreen(navController: NavHostController, movieId: Int) {
     Log.d("MOVIE DETAIL SCREEN", "Id recibido: $movieId")
 
     val detailMovie by viewModel.movie.observeAsState()
+    val favoriteMovieIds by viewModel.favoriteMovieIds.collectAsState(initial = emptySet())
+
     Log.d("MOVIE DETAIL SCREEN", "Detail movie recibido: $detailMovie")
 
     if(detailMovie != null) {
         Column(modifier = Modifier
-            .fillMaxSize()
             .verticalScroll(rememberScrollState())) {
-            MovieMainInformation(detailMovie!!)
+            MovieMainInformation(detailMovie!!,
+                isFavorite = favoriteMovieIds.contains(detailMovie!!.id) ,
+                onFavoriteClick = {
+                    viewModel.getMovieByIdFromDb(detailMovie!!.id) { movieDB ->
+                        movieDB?.let {
+                            it.isFavourite = !it.isFavourite
+                            viewModel.updateFavorites(it)
+                        }
+                    }
+                })
             MovieOverview(detailMovie!!)
         }
     }  else {
