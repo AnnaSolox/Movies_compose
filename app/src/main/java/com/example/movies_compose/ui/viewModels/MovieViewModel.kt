@@ -1,7 +1,6 @@
 package com.example.movies_compose.ui.viewModels
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -77,13 +76,6 @@ class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel(
     val error: LiveData<String> get() = _errorMessage
 
     /**
-     * Función para limpiar la información de la película almacenada en el ViewModel.
-     */
-    fun clearMovie(){
-        _movie.value = null
-    }
-
-    /**
      * Función para obtener los detalles de una película específica por su ID.
      * Intenta obtener los datos desde la API, y si falla, intenta obtenerlos desde la base de datos.
      *
@@ -111,6 +103,7 @@ class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel(
                     withContext(Dispatchers.Main) {
                         _isLoading.value = false
                         _movie.value = movieFromDb.toMovieDetail()
+                        setCurrentScreenTitle(movieFromDb.movie.title!!)
                         Log.d("VIEWMODEL", "Película obtenida de la base de datos: $movieFromDb")
                     }
                 } catch (dbException: Exception) {
@@ -126,6 +119,7 @@ class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel(
                 withContext(Dispatchers.Main) {
                     _isLoading.value = false
                     _movie.value = movieDetails
+                    setCurrentScreenTitle(movieDetails.title!!)
                     Log.d("VIEWMODEL", "Película obtenida desde la API: $movieDetails")
                 }
             }
@@ -169,6 +163,11 @@ class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel(
         }
     }
 
+    /**
+     * Cambio de valor para el titulo dinámico de la appbar
+     *
+     * @param title titlo a cambiar
+     */
     fun setCurrentScreenTitle(title: String){
         _currentTitle.value = title
     }
