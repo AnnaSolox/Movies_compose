@@ -51,8 +51,6 @@ fun TabsComponent(navController: NavController, viewModel: MovieViewModel) {
         )
     )
 
-
-
     Column {
         TabRow(
             selectedTabIndex = selectedTabIndex.value ?: 0,
