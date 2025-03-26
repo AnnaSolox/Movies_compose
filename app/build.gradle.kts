@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.jetbrains.dokka)
 }
 
 android {
