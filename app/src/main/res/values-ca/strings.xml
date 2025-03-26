@@ -9,7 +9,7 @@
     <string name="toast_carga_peliculas_popular">Pel·lícules populars carregades amb èxit.</string>
     <string name="toast_carga_peliculas_favoritas">Pel·lícules favorites carregades amb èxit.</string>
     <string name="toast_carga_detalles">Pel·lícula %1$s carregada amb èxit.</string>
-    <string name="favourites_bottom_menu">Favorites</string>
+    <string name="favorites_bottom_menu">Favorites</string>
     <string name="popular_bottom_menu">Populars</string>
     <string name="favorite_icon">Icona de favorit.</string>
     <string name="movies_icon">Icona de pel·lícula.</string>

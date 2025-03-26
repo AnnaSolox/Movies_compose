@@ -9,7 +9,7 @@
     <string name="toast_carga_peliculas_popular">Les films populaires sont chargés correctement.</string>
     <string name="toast_carga_peliculas_favoritas">Les films favoris ont été chargés correctement.</string>
     <string name="toast_carga_detalles">Le film %1$s s\'est chargé correctement.</string>
-    <string name="favourites_bottom_menu">Favoris</string>
+    <string name="favorites_bottom_menu">Favoris</string>
     <string name="popular_bottom_menu">Populaires</string>
     <string name="favorite_icon">Icône favorite.</string>
     <string name="movies_icon">Icône des films.</string>

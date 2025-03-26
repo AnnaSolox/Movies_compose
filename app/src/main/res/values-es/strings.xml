@@ -9,11 +9,11 @@
     <string name="toast_carga_peliculas_popular">Películas populares cargadas con éxito</string>
     <string name="toast_carga_peliculas_favoritas">Películas favoritas cargadas con éxito</string>
     <string name="toast_carga_detalles">Película %1$s cargada con éxito</string>
-    <string name="favourites_bottom_menu">Favoritos</string>
+    <string name="favorites_bottom_menu">Favoritas</string>
     <string name="popular_bottom_menu">Populares</string>
     <string name="favorite_icon">Icono favorito</string>
     <string name="movies_icon">Icono películas</string>
-    <string name="no_favorite_movies">No hay ninguna película guardada coomo favorita.</string>
+    <string name="no_favorite_movies">No hay ninguna película guardada como favorita.</string>
     <string name="popular_topbar_title">Películas populares</string>
     <string name="favorites_topbar_title">Películas favoritas</string>
     <string name="icon_arrowback_topbar">Icono flecha de retroceso</string>

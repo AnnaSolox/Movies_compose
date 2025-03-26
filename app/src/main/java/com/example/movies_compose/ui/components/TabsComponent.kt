@@ -42,11 +42,11 @@ fun TabsComponent(navController: NavController, viewModel: MovieViewModel) {
 
     val navigationItems = listOf(
         NavigationItem(
-            context.resources.getString(R.string.popular_navigation),
+            context.resources.getString(R.string.popular_bottom_menu),
             Icons.Default.Star
         ),
         NavigationItem(
-            context.resources.getString(R.string.favorites_navigation),
+            context.resources.getString(R.string.favorites_bottom_menu),
             Icons.Default.Favorite
         )
     )

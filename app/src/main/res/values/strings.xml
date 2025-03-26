@@ -8,7 +8,7 @@
     <string name="toast_carga_peliculas_popular">Popular movies loaded correctly.</string>
     <string name="toast_carga_peliculas_favoritas">Favorite movies loaded correctly.</string>
     <string name="toast_carga_detalles">Movie %1$s loaded correctly.</string>
-    <string name="favourites_bottom_menu">Favourites</string>
+    <string name="favorites_bottom_menu">Favourites</string>
     <string name="popular_bottom_menu">Popular</string>
     <string name="favorite_icon">Favourite icon.</string>
     <string name="movies_icon">Movies icon.</string>
