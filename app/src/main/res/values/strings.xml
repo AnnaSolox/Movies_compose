@@ -4,18 +4,18 @@
     <string name="movie_backdrop_image">Movie backdrop image</string>
     <string name="overview_detail_movie_fragment">Overview</string>
     <string name="no_vote_average">NR</string>
-    <string name="fallo_conexion_internet">No se puede establecer el servicio. \nRevisa tu conexión a Internet</string>
-    <string name="toast_carga_peliculas_popular">Popular movies loaded correctly</string>
-    <string name="toast_carga_peliculas_favoritas">Favorite movies loaded correctly</string>
-    <string name="toast_carga_detalles">Movie %1$s loaded correctly</string>
+    <string name="fallo_conexion_internet">Unable to establish service. \nCheck your Internet connection.</string>
+    <string name="toast_carga_peliculas_popular">Popular movies loaded correctly.</string>
+    <string name="toast_carga_peliculas_favoritas">Favorite movies loaded correctly.</string>
+    <string name="toast_carga_detalles">Movie %1$s loaded correctly.</string>
     <string name="favourites_bottom_menu">Favourites</string>
     <string name="popular_bottom_menu">Popular</string>
-    <string name="favorite_icon">Favourite icon</string>
-    <string name="movies_icon">Movies icon</string>
-    <string name="no_favorite_movies">No favorite movies yet</string>
-    <string name="popular_navigation">Popular</string>
-    <string name="favorites_navigation">Favorites</string>
+    <string name="favorite_icon">Favourite icon.</string>
+    <string name="movies_icon">Movies icon.</string>
+    <string name="no_favorite_movies">No favorite movies yet.</string>
+    <string name="popular_navigation" translatable="false">Popular</string>
+    <string name="favorites_navigation" translatable="false">Favorites</string>
     <string name="popular_topbar_title">Popular Movies</string>
     <string name="favorites_topbar_title">Favorite Movies</string>
-    <string name="icon_arrowback_topbar">Arrow back top bar</string>
+    <string name="icon_arrowback_topbar">Arrow back icon.</string>
 </resources>

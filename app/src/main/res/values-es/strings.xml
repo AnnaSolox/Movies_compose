@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="movie_poster">Portada de la película</string>
+    <string name="movie_backdrop_image">Imagen de fondo de la película</string>
+    <string name="overview_detail_movie_fragment">Vista general</string>
+    <string name="no_vote_average">NC</string>
+    <string name="fallo_conexion_internet">No se puede establecer el servicio. \nRevisa tu conexión a Internet</string>
+    <string name="toast_carga_peliculas_popular">Películas populares cargadas con éxito</string>
+    <string name="toast_carga_peliculas_favoritas">Películas favoritas cargadas con éxito</string>
+    <string name="toast_carga_detalles">Película %1$s cargada con éxito</string>
+    <string name="favourites_bottom_menu">Favoritos</string>
+    <string name="popular_bottom_menu">Populares</string>
+    <string name="favorite_icon">Icono favorito</string>
+    <string name="movies_icon">Icono películas</string>
+    <string name="no_favorite_movies">No hay ninguna película guardada coomo favorita.</string>
+    <string name="popular_topbar_title">Películas populares</string>
+    <string name="favorites_topbar_title">Películas favoritas</string>
+    <string name="icon_arrowback_topbar">Icono flecha de retroceso</string>
+</resources>

@@ -19,7 +19,7 @@ fun TopBar(navController: NavController, currentTitle: String) {
     val excludedTitlesIcon =
         listOf(
             context.resources.getString(R.string.popular_topbar_title),
-            context.resources.getString(R.string.favorites_topbar_title)
+            context.resources.getString(R.string.favorites_topbar_title),
         )
     TopAppBar(
         title = { Text(text = currentTitle) },

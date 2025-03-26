@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="movie_poster">Portada de la pel·lícula.</string>
+    <string name="movie_backdrop_image">Imatge de fons de la pel·lícula.</string>
+    <string name="overview_detail_movie_fragment">Vista general</string>
+    <string name="no_vote_average">NC</string>
+    <string name="fallo_conexion_internet">No es pot establir el servei. \nComprova la teua connexió a internet.</string>
+    <string name="toast_carga_peliculas_popular">Pel·lícules populars carregades amb èxit.</string>
+    <string name="toast_carga_peliculas_favoritas">Pel·lícules favorites carregades amb èxit.</string>
+    <string name="toast_carga_detalles">Pel·lícula %1$s carregada amb èxit.</string>
+    <string name="favourites_bottom_menu">Favorites</string>
+    <string name="popular_bottom_menu">Populars</string>
+    <string name="favorite_icon">Icona de favorit.</string>
+    <string name="movies_icon">Icona de pel·lícula.</string>
+    <string name="no_favorite_movies">No hi ha cap pel·lícula guardada com a favorita.</string>
+    <string name="popular_topbar_title">Pel·lícules populars</string>
+    <string name="favorites_topbar_title">Pel·lícules favorites</string>
+    <string name="icon_arrowback_topbar">Icona de fletxa de retrocés.</string>
+</resources>

@@ -216,7 +216,8 @@ fun MovieMainInformation(
 
 @Composable
 fun MovieOverview(movie: MovieDetail) {
-    movie.overview?.let {
+    val context = LocalContext.current
+    if (!movie.overview.isNullOrBlank()) {
         Box(
             Modifier
                 .fillMaxSize()
@@ -226,7 +227,7 @@ fun MovieOverview(movie: MovieDetail) {
         ) {
             Column {
                 Text(
-                    text = "Overview",
+                    text = context.resources.getString(R.string.overview_detail_movie_fragment),
                     style = MaterialTheme.typography.bodyLarge,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold

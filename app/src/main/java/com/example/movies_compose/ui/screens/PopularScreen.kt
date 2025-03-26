@@ -24,8 +24,6 @@ fun PopularScreen(navigateToDetail: (Int) -> Unit, viewModel: MovieViewModel) {
     val popularMovies = viewModel.movies.collectAsLazyPagingItems()
     val favoriteMovieIds by viewModel.favoriteMovieIds.collectAsState(initial = emptySet())
 
-    viewModel.setCurrentScreenTitle("Popular Movies")
-
     if (popularMovies.loadState.refresh is LoadState.Loading) {
         LoadingComponent()
     }
