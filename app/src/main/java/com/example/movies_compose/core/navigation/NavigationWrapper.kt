@@ -1,9 +1,14 @@
 package com.example.movies_compose.core.navigation
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,7 +19,7 @@ import androidx.navigation.toRoute
 import com.example.movies_compose.data.api.RetrofitInstance
 import com.example.movies_compose.data.bbdd.MovieDatabase
 import com.example.movies_compose.data.repositories.MoviesRepository
-import com.example.movies_compose.ui.components.BottomNavigationBar
+import com.example.movies_compose.ui.components.TabsComponent
 import com.example.movies_compose.ui.components.TopBar
 import com.example.movies_compose.ui.screens.FavoriteScreen
 import com.example.movies_compose.ui.screens.MovieDetailScreen
@@ -34,10 +39,24 @@ fun NavigationWrapper() {
     val viewModel: MovieViewModel = viewModel(factory = MovieViewModelFactory(moviesRepository))
 
     val currentTitle = viewModel.currentTitle.observeAsState()
+    var tabVisibilityState by rememberSaveable {( mutableStateOf( true ))}
 
     Scaffold(
-        topBar = { currentTitle.value?.let { TopBar(navController = navController, currentTitle = it) } },
-        bottomBar = { BottomNavigationBar(navController = navController) }
+        topBar = {
+            currentTitle.value?.let {
+                TopBar(
+                    navController = navController,
+                    currentTitle = it
+                )
+            }
+        },
+        bottomBar = {
+            if (tabVisibilityState) {
+                BottomAppBar {
+                    TabsComponent(navController = navController, viewModel = viewModel)
+                }
+            }
+        }
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -46,17 +65,22 @@ fun NavigationWrapper() {
         ) {
             composable<PopularMovies> {
                 viewModel.setCurrentScreenTitle("Popular Movies")
-                PopularScreen ({ movieId ->
+                viewModel.selectIndex(0)
+                tabVisibilityState = true
+                PopularScreen({ movieId ->
                     navController.navigate(MovieDetail(movieId = movieId))
                 }, viewModel)
             }
             composable<FavoriteMovies> {
                 viewModel.setCurrentScreenTitle("Favorite Movies")
-                FavoriteScreen ({ movieId ->
+                viewModel.selectIndex(1)
+                tabVisibilityState = true
+                FavoriteScreen({ movieId ->
                     navController.navigate(MovieDetail(movieId = movieId))
                 }, viewModel)
             }
             composable<MovieDetail> { backStackEntry ->
+                tabVisibilityState = false
                 val movieDetail: MovieDetail = backStackEntry.toRoute()
                 MovieDetailScreen(movieId = movieDetail.movieId, viewModel = viewModel)
             }

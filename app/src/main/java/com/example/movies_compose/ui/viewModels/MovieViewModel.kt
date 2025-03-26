@@ -34,6 +34,10 @@ class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel(
     private val _currentTitle = MutableLiveData<String>()
     val currentTitle: LiveData<String> get() = _currentTitle
 
+    //Detectar el índice para actualizar el tab seleccionado
+    private val _selectedIndex = MutableLiveData<Int>()
+    val selectedIndex: LiveData<Int> get() = _selectedIndex
+
     //Detectar idioma del teléfono
     private val language = "${Locale.getDefault().language}-${Locale.getDefault().country}"
 
@@ -170,5 +174,14 @@ class MovieViewModel(private val movieRepository: MoviesRepository) : ViewModel(
      */
     fun setCurrentScreenTitle(title: String){
         _currentTitle.value = title
+    }
+
+    /**
+     * Cambio de índice para notificar a las tabs cuál ha de estar seleccionada
+     *
+     * @param index Índice a seleccionar
+     */
+    fun selectIndex(index: Int){
+        _selectedIndex.value = index
     }
 }

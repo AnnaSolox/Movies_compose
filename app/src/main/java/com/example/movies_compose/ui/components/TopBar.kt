@@ -13,11 +13,12 @@ import androidx.navigation.NavController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(navController: NavController, currentTitle: String) {
+    val excludedTitlesIcon = listOf("Popular Movies", "Favorite Movies")
     TopAppBar(
         title = { Text(text = currentTitle) },
         navigationIcon = {
-            if (currentTitle != "Popular Movies" && currentTitle != "Favorite Movies"){
-                IconButton(onClick = { navController.navigateUp() }) {
+            if (currentTitle !in excludedTitlesIcon){
+                IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Arrow back top bar"
