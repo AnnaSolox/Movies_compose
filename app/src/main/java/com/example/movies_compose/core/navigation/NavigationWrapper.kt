@@ -1,10 +1,7 @@
 package com.example.movies_compose.core.navigation
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -18,13 +15,13 @@ import com.example.movies_compose.data.api.RetrofitInstance
 import com.example.movies_compose.data.bbdd.MovieDatabase
 import com.example.movies_compose.data.repositories.MoviesRepository
 import com.example.movies_compose.ui.components.BottomNavigationBar
+import com.example.movies_compose.ui.components.TopBar
 import com.example.movies_compose.ui.screens.FavoriteScreen
 import com.example.movies_compose.ui.screens.MovieDetailScreen
 import com.example.movies_compose.ui.screens.PopularScreen
 import com.example.movies_compose.ui.viewModels.MovieViewModel
 import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationWrapper() {
     val navController = rememberNavController()
@@ -39,7 +36,7 @@ fun NavigationWrapper() {
     val currentTitle = viewModel.currentTitle.observeAsState()
 
     Scaffold(
-        topBar = {TopAppBar(title = { Text(currentTitle.value ?: "Popular Movies") })},
+        topBar = { currentTitle.value?.let { TopBar(navController = navController, currentTitle = it) } },
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) { innerPadding ->
         NavHost(

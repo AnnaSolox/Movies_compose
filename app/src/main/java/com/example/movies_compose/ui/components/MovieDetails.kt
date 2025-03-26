@@ -141,6 +141,7 @@ fun MovieMainInformation(
                     Text(
                         text = it.uppercase(),
                         style = MaterialTheme.typography.displayMedium,
+                        fontSize = 45.sp
                     )
                 }
 
