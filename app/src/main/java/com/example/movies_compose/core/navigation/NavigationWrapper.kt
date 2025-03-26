@@ -82,17 +82,19 @@ fun NavigationWrapper() {
                 viewModel.setCurrentScreenTitle(context.resources.getString(R.string.popular_topbar_title))
                 viewModel.selectIndex(0)
                 tabVisibilityState = true
-                PopularScreen({ movieId ->
-                    navController.navigate(MovieDetail(movieId = movieId))
-                }, viewModel)
+                PopularScreen(
+                    { movieId -> navController.navigate(MovieDetail(movieId = movieId)) },
+                    viewModel
+                )
             }
             composable<FavoriteMovies> {
                 viewModel.setCurrentScreenTitle(context.resources.getString(R.string.favorites_topbar_title))
                 viewModel.selectIndex(1)
                 tabVisibilityState = true
-                FavoriteScreen({ movieId ->
-                    navController.navigate(MovieDetail(movieId = movieId))
-                }, viewModel)
+                FavoriteScreen(
+                    { movieId -> navController.navigate(MovieDetail(movieId = movieId))},
+                    viewModel
+                )
             }
             composable<MovieDetail> { backStackEntry ->
                 tabVisibilityState = false
