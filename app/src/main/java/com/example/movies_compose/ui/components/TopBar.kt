@@ -24,5 +24,6 @@ fun TopBar(navController: NavController, currentTitle: String) {
                     )
                 }
             }
-        })
+        }
+    )
 }
