@@ -78,7 +78,7 @@ fun MovieMainInformation(
             Box {
                     AsyncImage(
                         model = Constants.BACKDROP_BASE_URL + movie.backdropPath,
-                        contentDescription = "Movie backdrop image",
+                        contentDescription = context.resources.getString(R.string.movie_backdrop_image),
                         error = painterResource(R.drawable.image_not_found),
                         fallback = ColorPainter(Color.DarkGray),
                         contentScale = ContentScale.Crop,
@@ -130,7 +130,7 @@ fun MovieMainInformation(
                         Icon(
                             imageVector = favoriteIcon,
                             tint = Color.White,
-                            contentDescription = "FavoriteIcon",
+                            contentDescription = context.resources.getString(R.string.favorite_icon),
                             modifier = Modifier
                                 .size(38.dp)
                                 .align(Alignment.Center)
@@ -201,7 +201,7 @@ fun MovieMainInformation(
                                     modifier = Modifier.fillMaxSize(),
                                 )
                                 Text(
-                                    text = if (vote != 0) "${vote}%" else "NR",
+                                    text = if (vote != 0) "${vote}%" else context.resources.getString(R.string.no_vote_average),
                                     style = MaterialTheme.typography.bodyMedium,
                                     modifier = Modifier.align(Alignment.Center)
                                 )

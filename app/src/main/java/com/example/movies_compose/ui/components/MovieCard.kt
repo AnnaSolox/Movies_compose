@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -47,6 +48,8 @@ fun MovieCard(
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
 
+    val context = LocalContext.current
+
     val heightInDp = screenHeight * 0.6
 
     val favoriteIcon = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder
@@ -63,7 +66,7 @@ fun MovieCard(
             val info = createRef()
             AsyncImage(
                 model = Constants.POSTER_BASE_URL + movieRV.posterPath,
-                contentDescription = "Movie poster",
+                contentDescription = context.resources.getString(R.string.movie_poster),
                 error = painterResource(R.drawable.image_not_found),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -116,7 +119,7 @@ fun MovieCard(
                 ) {
                     Icon(
                         imageVector = favoriteIcon,
-                        contentDescription = "Favorite icon",
+                        contentDescription = context.resources.getString(R.string.favorite_icon),
                         tint = Color.White,
                         modifier = Modifier
                             .size(40.dp)

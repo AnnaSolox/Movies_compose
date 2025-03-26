@@ -10,12 +10,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.example.movies_compose.R
 import com.example.movies_compose.data.api.RetrofitInstance
 import com.example.movies_compose.data.bbdd.MovieDatabase
 import com.example.movies_compose.data.repositories.MoviesRepository
@@ -30,6 +32,8 @@ import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
 @Composable
 fun NavigationWrapper() {
     val navController = rememberNavController()
+
+    val context = LocalContext.current
 
     val moviesRepository = MoviesRepository(
         movieDAO = MovieDatabase.getDatabase(LocalContext.current).movieDao(),
@@ -52,7 +56,9 @@ fun NavigationWrapper() {
         },
         bottomBar = {
             if (tabVisibilityState) {
-                BottomAppBar {
+                BottomAppBar(
+                    containerColor = Color.White
+                ) {
                     TabsComponent(navController = navController, viewModel = viewModel)
                 }
             }
@@ -64,7 +70,7 @@ fun NavigationWrapper() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable<PopularMovies> {
-                viewModel.setCurrentScreenTitle("Popular Movies")
+                viewModel.setCurrentScreenTitle(context.resources.getString(R.string.popular_topbar_title))
                 viewModel.selectIndex(0)
                 tabVisibilityState = true
                 PopularScreen({ movieId ->
@@ -72,7 +78,7 @@ fun NavigationWrapper() {
                 }, viewModel)
             }
             composable<FavoriteMovies> {
-                viewModel.setCurrentScreenTitle("Favorite Movies")
+                viewModel.setCurrentScreenTitle(context.resources.getString(R.string.favorites_topbar_title))
                 viewModel.selectIndex(1)
                 tabVisibilityState = true
                 FavoriteScreen({ movieId ->

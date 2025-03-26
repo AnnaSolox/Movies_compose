@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
+import com.example.movies_compose.R
 import com.example.movies_compose.core.navigation.FavoriteMovies
 import com.example.movies_compose.core.navigation.PopularMovies
 import com.example.movies_compose.ui.models.NavigationItem
@@ -21,22 +23,34 @@ import com.example.movies_compose.ui.viewModels.MovieViewModel
 fun TabsComponent(navController: NavController, viewModel: MovieViewModel) {
     val selectedTabIndex = viewModel.selectedIndex.observeAsState()
 
+    val context = LocalContext.current
+
     val navigationItems = listOf(
-        NavigationItem("Popular", Icons.Default.Star),
-        NavigationItem("Favorites", Icons.Default.Favorite)
+        NavigationItem(
+            context.resources.getString(R.string.popular_navigation),
+            Icons.Default.Star
+        ),
+        NavigationItem(
+            context.resources.getString(R.string.favorites_navigation),
+            Icons.Default.Favorite
+        )
     )
+
+
 
     Column {
         TabRow(
             selectedTabIndex = selectedTabIndex.value ?: 0,
-            containerColor = Color.White
-        ) {
+            containerColor = Color.White,
+            divider = {}
+        )
+        {
             navigationItems.forEachIndexed { index, item ->
                 Tab(
                     selected = selectedTabIndex.value == index,
                     onClick = {
                         viewModel.selectIndex(index)
-                        navController.navigate(if (index == 0) PopularMovies else FavoriteMovies){
+                        navController.navigate(if (index == 0) PopularMovies else FavoriteMovies) {
                             popUpTo(navController.graph.startDestinationId) {
                                 inclusive = false
                             }
