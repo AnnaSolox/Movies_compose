@@ -36,7 +36,19 @@ import com.example.movies_compose.R
 import com.example.movies_compose.core.Constants
 import com.example.movies_compose.ui.models.MovieRV
 
-
+/**
+ * Composable que representa una tarjeta de película. Muestra una imagen de la película, su título, fecha de estreno y un icono para marcarla como favorita.
+ *
+ * @param movieRV Objeto que contiene la información de la película que se va a mostrar.
+ * @param isFavorite Estado booleano que indica si la película está marcada como favorita.
+ * @param onClick Función que se ejecuta cuando la tarjeta de la película es clickeada.
+ * @param onFavoriteClick Función que se ejecuta cuando el icono de favorito es clickeado, pasando el estado actual de favorito.
+ *
+ * @see AsyncImage Muestra la imagen de la película.
+ * @see ElevatedCard El contenedor de la tarjeta con efecto de elevación.
+ * @see ConstraintLayout Layout que organiza los elementos dentro de la tarjeta.
+ * @see Icon Icono que muestra si la película es favorita o no.
+ */
 @Composable
 fun MovieCard(
     movieRV: MovieRV,
@@ -123,9 +135,7 @@ fun MovieCard(
                         tint = Color.White,
                         modifier = Modifier
                             .size(40.dp)
-                            .clickable {
-                                onFavoriteClick(movieRV.isFavorite)
-                            }
+                            .clickable { onFavoriteClick(movieRV.isFavorite) }
                     )
                 }
             }

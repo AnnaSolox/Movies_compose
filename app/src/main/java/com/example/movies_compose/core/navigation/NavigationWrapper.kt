@@ -29,6 +29,15 @@ import com.example.movies_compose.ui.screens.PopularScreen
 import com.example.movies_compose.ui.viewModels.MovieViewModel
 import com.example.movies_compose.ui.viewModels.MovieViewModelFactory
 
+/**
+ * Función Composable que gestiona la navegación entre pantallas de la aplicación.
+ * Incluye una barra superior que muestra el título de la pantalla actual y una barra inferior con pestañas
+ * para navegar entre películas populares y favoritas.
+ *
+ * Si la pantalla no corresponde con favoritos ni con populares, la barra inferior desaparece.
+ *
+ * @Composable
+ */
 @Composable
 fun NavigationWrapper() {
     val navController = rememberNavController()
@@ -92,5 +101,4 @@ fun NavigationWrapper() {
             }
         }
     }
-
 }

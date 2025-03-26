@@ -16,6 +16,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.movies_compose.R
 
+/**
+ * Composable que muestra una interfaz de usuario cuando no hay películas favoritas. Muestra un icono de película y un texto indicando que no se han seleccionado películas como favoritas.
+ *
+ * @see Icon Muestra un icono representando una película.
+ * @see Text Muestra un texto que indica que no hay películas favoritas.
+ * @see Column Organiza los elementos de la pantalla en una columna, centrando el contenido.
+ * @see Modifier Ajustes de tamaño y alineación de los elementos.
+ */
 @Preview(showBackground = true)
 @Composable
 fun NoFavorites() {

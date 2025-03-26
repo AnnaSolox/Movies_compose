@@ -42,6 +42,19 @@ import com.example.movies_compose.R
 import com.example.movies_compose.core.Constants
 import com.example.movies_compose.data.api.models.MovieDetail
 
+/**
+ * Composable que muestra la información principal de una película, incluyendo su imagen de fondo, título, tagline, géneros, fecha de estreno, duración y promedio de votos. También incluye un icono para marcar la película como favorita.
+ *
+ * @param movie Objeto `MovieDetail` que contiene la información detallada de la película.
+ * @param isFavorite Estado booleano que indica si la película está marcada como favorita.
+ * @param onFavoriteClick Función que se ejecuta cuando se hace clic en el icono de favorito.
+ *
+ * @see AsyncImage Muestra la imagen de fondo de la película.
+ * @see CircularProgressIndicator Muestra el progreso de la calificación de la película.
+ * @see Icon Muestra el icono de favorito.
+ * @see ConstraintLayout Layout que organiza la información principal de forma relativa a la imagen.
+ * @see Text Muestra textos como el título, fecha de estreno, género, etc.
+ */
 @Composable
 fun MovieMainInformation(
     movie: MovieDetail,
@@ -214,6 +227,16 @@ fun MovieMainInformation(
     }
 }
 
+/**
+ * Composable que muestra el argumento de una película. Si la película tiene un resumen no vacío, se muestra un título seguido del texto del resumen en una caja con un fondo blanco.
+ *
+ * @param movie Objeto `MovieDetail` que contiene la información de la película, incluyendo su resumen.
+ *
+ * @see Text Muestra el título y el resumen de la película.
+ * @see Column Organiza los elementos en una columna.
+ * @see Spacer Añade espacio entre los elementos.
+ * @see Box Contenedor que permite organizar los elementos en la pantalla con un fondo y relleno.
+ */
 @Composable
 fun MovieOverview(movie: MovieDetail) {
     val context = LocalContext.current
