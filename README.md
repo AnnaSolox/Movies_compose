@@ -1,6 +1,6 @@
 # Movies compose
 
-![Screenshot de la app](./app/assets/screenshots/portada_movies_compose.png)
+![Screenshot de la app](./app/assets/screenshots/portada_movies_compose.jpg)
 
 **Movies compose** es una aplicación desarrollada en `Kotlin` con `Jetpack` (Room, ViewModel, Compose), `corrutinas` y `Material Design` basado en `clean arquitecture` con un modelo de presentación `MVVM`.
 
