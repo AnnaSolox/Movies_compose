@@ -53,10 +53,10 @@
 ---
 
 ## Open API
-<table style="border-collapse: collapse; border: none;">
+<table border="0" style="border-collapse: collapse;">
   <tr>
     <td style="border: none; padding: 8px;">
-      <p>Movies compose utiliza la API [The Movie Database (TMDB)](https://www.themoviedb.org/documentation/api) para obterner la información de las películas. </p>
+      <p>Movies compose utiliza la API <a href="https://www.themoviedb.org/documentation/api">The Movie Database (TMDB)</a> para obterner la información de las películas. </p>
     </td>
     <td style="border: none; padding: 8px;">
       <img src="./app/assets/screenshots/icono_themoviedb.svg" alt="Logotipo The movie db" width="300"/>
