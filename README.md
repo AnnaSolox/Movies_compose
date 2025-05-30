@@ -5,6 +5,10 @@
 **Movies compose** es una aplicación desarrollada en `Kotlin` con `Jetpack` (Room, ViewModel, Compose), `corrutinas` y `Material Design` basado en `clean arquitecture` con un modelo de presentación `MVVM`.
 
 ---
+
+## Descargar
+Ve a [Releases](./app/release) para descargar la última versión de la APK.
+
 ## Requisitos
 ![Kotlin](https://img.shields.io/badge/kotlin-blue) ![Jetpack](https://img.shields.io/badge/Jetpack-gray) ![Android SDK](https://img.shields.io/badge/API-28+-green)
 - Lenguaje: Kotlin
@@ -53,12 +57,12 @@
 ---
 
 ## Open API
-<table style="border-collapse: collapse; border: none; width: 100%;">
-<tr style="border: none;">
-<td style="border: none; width: 60%; vertical-align: top;">
+<table style="border-collapse: collapse; border: 0; outline: 0; width: 100%;">
+<tr>
+<td style="border: 0; outline: 0; width: 60%; vertical-align: top;">
 Movies compose utiliza la API <a href="https://www.themoviedb.org/documentation/api">The Movie Database (TMDB)</a> para obtener la información de las películas.
 </td>
-<td style="border: none; width: 40%; vertical-align: top;">
+<td style="border: 0; outline: 0; width: 40%; vertical-align: top;">
 <img src="./app/assets/screenshots/icono_themoviedb.svg" alt="Logotipo The movie db" width="300"/>
 </td>
 </tr>
