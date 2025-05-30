@@ -12,7 +12,7 @@ Ve a [Releases](./app/release) para descargar la última versión de la APK.
 ## Requisitos
 ![Kotlin](https://img.shields.io/badge/kotlin-blue) ![Jetpack](https://img.shields.io/badge/Jetpack-gray) ![Android SDK](https://img.shields.io/badge/API-28+-green)
 - Lenguaje: Kotlin
-- Framework: Compose
+- Toolkit: Jetpack Android
 - SDK mínimo: 28
 - SDK máximo: 35
 
