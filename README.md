@@ -24,7 +24,7 @@
 - **Navigation Compose**: Navegación entre pantallas.
 
 ### Persistencia de datos
-- **Room**: Abstracción sobre SQLite para acceso local a base de datos con seguridad de tipo y consultas reactivas.
+- **Room**: Persistencia en base de datos local sobre SQLite.
 
 ### Consumo de API REST
 - **Retrofit2** + **OkHttp3**: Cliente HTTP moderno y eficiente para llamadas REST.
