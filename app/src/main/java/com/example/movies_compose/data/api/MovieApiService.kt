@@ -20,7 +20,7 @@ interface MovieApiService {
      *
      * @return Retrofit Response que contiene un objeto `MovieListResponse` con la lista de películas.
      */
-    @GET("movie/popular?language=")
+    @GET("movie/popular")
     suspend fun getPopularMovies(
         @Query("language") language: String,
         @Query("page") page: Int

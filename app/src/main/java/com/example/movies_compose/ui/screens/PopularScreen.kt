@@ -28,10 +28,21 @@ fun PopularScreen(navigateToDetail: (Int) -> Unit, viewModel: MovieViewModel) {
     val popularMovies = viewModel.movies.collectAsLazyPagingItems()
     val favoriteMovieIds by viewModel.favoriteMovieIds.collectAsState(initial = emptySet())
 
+    val isLoading = popularMovies.loadState.refresh is LoadState.Loading
+
+    val errorState = popularMovies.loadState.refresh as? LoadState.Error
+        ?: popularMovies.loadState.append as? LoadState.Error
+
+    errorState?.let { error ->
+        androidx.compose.runtime.LaunchedEffect(error) {
+            android.util.Log.e("PopularScreen", "Error cargando películas: ${error.error.localizedMessage}")
+        }
+    }
+
     MoviesList(
         movies = popularMovies,
         favorites = favoriteMovieIds,
-        isLoading = popularMovies.loadState.refresh is LoadState.Loading,
+        isLoading = isLoading,
         showNoFavorites = false,
         navigateToDetail = navigateToDetail,
         onFavoriteClick = { movie ->
