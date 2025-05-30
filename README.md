@@ -54,7 +54,7 @@
 
 ## Open API
 <table style="border-collapse: collapse; border: none; width: 100%;">
-<tr>
+<tr style="border: none;">
 <td style="border: none; width: 60%; vertical-align: top;">
 Movies compose utiliza la API <a href="https://www.themoviedb.org/documentation/api">The Movie Database (TMDB)</a> para obtener la información de las películas.
 </td>
