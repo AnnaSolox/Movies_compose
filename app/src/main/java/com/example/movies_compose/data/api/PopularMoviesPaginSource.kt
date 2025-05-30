@@ -6,9 +6,9 @@ import androidx.paging.PagingState
 import com.example.movies_compose.data.api.models.MovieListResponse
 import com.example.movies_compose.data.repositories.MoviesRepository
 import com.example.movies_compose.ui.models.MovieRV
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.supervisorScope
 import java.util.Locale
 
 /**
@@ -52,7 +52,11 @@ class PopularMoviesPaginSource(
             totalPages = response.totalPages
 
         } catch (e: Exception) {
-            Log.e("PAGIN SOURCE", "API_ERROR: Error obteniendo películas desde la API, intentando usar la base de datos local", e)
+            Log.e(
+                "PAGIN SOURCE",
+                "API_ERROR: Error obteniendo películas desde la API, intentando usar la base de datos local",
+                e
+            )
         }
 
         // Si la lista está vacía después del intento con la API, buscar en la BBDD
@@ -65,7 +69,11 @@ class PopularMoviesPaginSource(
                     throw Exception("No hay datos disponibles en la base de datos.")
                 }
             } catch (dbException: Exception) {
-                Log.e("PAGIN SOURCE", "DB_ERROR: Error al obtener películas desde la base de datos", dbException)
+                Log.e(
+                    "PAGIN SOURCE",
+                    "DB_ERROR: Error al obtener películas desde la base de datos",
+                    dbException
+                )
                 return LoadResult.Error(dbException)
             }
         }
@@ -84,18 +92,31 @@ class PopularMoviesPaginSource(
      * @param response Respuesta de la API con las películas que se deben guardar.
      * @param favoriteMovieIds Conjunto de IDs de películas favoritas.
      */
-    private fun getMovieDetailsAndSave(language: String, response: MovieListResponse, favoriteMovieIds: Set<Int>) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val detailMovieList = response.movies.map{
-                    movie ->
-                moviesRepository.getMovieByIdFromAPI(language, movie.id)
+    private suspend fun getMovieDetailsAndSave(
+        language: String,
+        response: MovieListResponse,
+        favoriteMovieIds: Set<Int>
+    ) =
+        supervisorScope {
+            val detailMovieList = response.movies.map { movie ->
+                async {
+                    try {
+                        moviesRepository.getMovieByIdFromAPI(language, movie.id)
+                    } catch (e: Exception) {
+                        Log.e(
+                            "PAGIN SOURCE",
+                            "Error obteniendo detalle de película ID: ${movie.id}",
+                            e
+                        )
+                        null
+                    }
+                }
+            }.awaitAll().filterNotNull()
+
+            if (detailMovieList.isNotEmpty()) {
+                moviesRepository.saveMoviesToDB(detailMovieList, favoriteMovieIds)
             }
-
-            Log.d("PAGIN SOURCE", "Películas a guardar en BD: $detailMovieList")
-
-            moviesRepository.saveMoviesToDB(detailMovieList, favoriteMovieIds)
         }
-    }
 
     /**
      * Devuelve la clave de la página de refresco para la paginación.
