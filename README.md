@@ -53,12 +53,12 @@
 ---
 
 ## Open API
-<div style="display: flex; gap: 20px;">
+<div style="display: flex; gap: 20px; align-items: center;">
 <div style="flex: 1;">
-  Movies compose utiliza la API <a href="https://www.themoviedb.org/documentation/api">The Movie Database (TMDB)</a> para obterner la información de las películas. </p>
+  <p>Movies compose utiliza la API <a href="https://www.themoviedb.org/documentation/api">The Movie Database (TMDB)</a> para obtener la información de las películas.</p>
 </div>
 <div style="flex: 1;">
-<img src="./app/assets/screenshots/icono_themoviedb.svg" alt="Logotipo The movie db" width="300"/>
+  <img src="./app/assets/screenshots/icono_themoviedb.svg" alt="Logotipo The movie db" width="300"/>
 </div>
 </div>
 
