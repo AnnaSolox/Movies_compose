@@ -22,7 +22,6 @@ Ve a [Releases](./app/release) para descargar la última versión de la APK.
 
 ### Librerías y herramientas principales
 - **Jetpack Compose**: Toolkit moderno de Android para desarrollar interfaces declarativas de forma rápida y eficiente.
-- **Lifecycle**: Gestiona los ciclos de vida de componentes de UI de forma reactiva.
 - **ViewModel**: Permite mantener y gestionar datos de UI de manera segura ante cambios de configuración.
 - **LiveData**: Observa los datos y permite que la UI reaccione automáticamente a los cambios.
 - **Navigation Compose**: Navegación entre pantallas.
