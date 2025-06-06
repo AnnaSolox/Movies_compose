@@ -73,9 +73,16 @@ Movies compose utiliza la API <a href="https://www.themoviedb.org/documentation/
 ## Licencia
 Diseñado y desarrollado por AnnaSolox en 2025.
 
-Este proyecto está bajo la licencia [Apache 2.0](./LICENSE.md).
-Puedes usar, copiar, modificar y distribuir este software libremente, pero sin garantía alguna.
-El autor no se hace responsable de ningún daño o problema que pueda surgir del uso de este software.
+```
+Este proyecto está bajo la licencia [Apache 2.0](./LICENSE).
+No puedes usar este archivo salvo en cumplimiento con la Licencia.
+Puedes obtener una copia de la Licencia en:
 
-Puedes encontrar una copia de la licencia en
 https://opensource.org/license/apache-2-0
+
+A menos que lo exija la ley aplicable o se acuerde por escrito,
+el software distribuido bajo la Licencia se distribuye "TAL CUAL",
+SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ya sean expresas o implícitas.
+Consulta la Licencia para conocer el lenguaje específico
+que regula los permisos y limitaciones bajo la Licencia.
+```
